@@ -14,12 +14,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://opscode-vm-ento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-13.10_chef-provisionerless.box"
-
+  config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-13.10_chef-provisionerless.box"
+	
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 80, host: 8080
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -103,10 +103,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # HTTP instead of HTTPS depending on your configuration. Also change the
   # validation key to validation.pem.
   #
-  # config.vm.provision :chef_client do |chef|
-  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-  #   chef.validation_key_path = "ORGNAME-validator.pem"
-  # end
+   config.vm.provision :chef_client do |chef|
+    	chef.chef_server_url = "https://api.opscode.com/organizations/alialpsln"
+    	chef.validation_key_path = ".chef/alialpsln-validator.pem"
+		chef.validation_client_name = "alialpsln-validator"
+		chef.node_name = "ali_vm"	
+   end
   #
   # If you're using the Opscode platform, your validator client is
   # ORGNAME-validator, replacing ORGNAME with your organization name.
